@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html ng-app="BuscMinas">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/style.css" media="screen" title="no title" charset="utf-8">
+    <title>Busca Minas</title>
+  </head>
+  <body class="body" ng-controller="size as maintab">
+    <div class="design-lvl" ng-show="maintab.isSelected(1)">
+      <div class="page-header welch1">
+        <h1 class="">Welcome To MinesWeeper The Game <small>made by adrian rodriguez</small></h1>
+      </div>
+      <form class="form-lvl">
+        <fieldset class="form-group">
+          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="your name" ng-model="name">
+        </fieldset>
+        <fieldset class="form-group">
+          <select class="form-control" id="sel1" name="level" ng-model="level" required>
+            <option value="">select level</option>
+            <option value="beginner">beginner</option>
+            <option value="intermidate">intermidate</option>
+            <option value="advance">advance</option>
+            <option value="expert">expert</option>
+          </select>
+        </fieldset>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" ng-click="maintab.MakeGame($level,$name)">Start game</button>
+      </form>
+    </div>
+    <div class="mines" ng-show="maintab.isSelected(2)">
+      <button class="btn btn-primary" type="button">
+      Mines <span class="badge">{{minesCount}}</span>
+      </button></div>
+    <div class="minefield" ng-show="maintab.isSelected(2)">
+      <table class"table" >
+         <tr ng-repeat="row in minefield.rows" >
+           <td ng-repeat="spot in row.spots"ng-disabled="spot.isDisabled= false" ng-click="uncoverSpot(spot,row)" ng-right-click="flagPlace(spot)">
+
+            <img ng-if="spot.isCovered" src="img/not_flat_button.png" />
+            <img ng-if="!spot.isCovered && spot.content == 'empty'" src="img/flat_button.png" />
+            <img ng-if="!spot.isCovered && spot.content == 'mine'" src="img/mine_flat_button.png" />
+            <img ng-if="!spot.isCovered && spot.content == 1" src="img\one_flat_button.png" />
+            <img ng-if="!spot.isCovered && spot.content == 2" src="img\two_flat_button.png" />
+            <img ng-if="!spot.isCovered && spot.content == 3" src="img\three_flat_button.png" />
+            <img ng-if="!spot.isCovered && spot.content == 4" src="img\four_flat_button.png" />
+            <img ng-if="!spot.isCovered && spot.content == 5" src="img\five_flat_button.png" />
+            <img ng-if="!spot.isCovered && spot.content == 6" src="img\six_flat_button.png" />
+            <img ng-if="!spot.isCovered && spot.content == 7" src="img\seven_flat_button.png" />
+            <img ng-if="!spot.isCovered && spot.content == 8" src="img\eight_flat_button.png" />
+            <img ng-if="!spot.isCovered && spot.content == 'explote'" src="img\mine_exploded_flat_button.png" />
+            <img ng-if="!spot.isCovered && spot.content == 'flag'" src="img\flag_no_flat_button.png" />
+           </td>
+         </tr>
+       </table>
+       <div class="msg">
+         <div ng-if ="hasWon" class="alert alert-success" role="alert">WELL DONE {{name}}</div>
+         <button ng-if ="hasWon" type="submit" class="btn btn-primary btn-lg btn-block" ng-click="maintab.MakeGame($level,$name);maintab.selectTab(2)">restart?</button>
+         <div ng-if ="isLose"class="alert alert-danger" role="alert">you lose</div>
+         <button ng-if ="isLose" type="submit" class="btn btn-primary btn-lg btn-block" ng-click="maintab.MakeGame($level,$name);maintab.selectTab(2)">restart?</button>
+       </form>
+       </div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-resource.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
+    <script src="js/Controller.js" charset="utf-8"></script>
+
+
+
+  </body>
+</html>
